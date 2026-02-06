@@ -1,0 +1,27 @@
+# Jekyll 构建文件
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# 便携版 Ruby 和 gems（项目本地化）
+tools/
+vendor/bundle/
+Gemfile.lock
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+Gemfile
+.bundle/config
+CLAUDE.md
+start.bat

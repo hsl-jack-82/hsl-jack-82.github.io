@@ -1,0 +1,168 @@
+---
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jack 的个人博客 - 分享技术学习心得和生活感悟">
+    <title>博客 - Jack</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/index.css">
+    <style>
+        .blog-header {
+            text-align: center;
+            padding: var(--space-4xl) 0 var(--space-2xl);
+        }
+
+        .blog-header h1 {
+            font-size: var(--font-size-4xl);
+            margin-bottom: var(--space-md);
+        }
+
+        .blog-header p {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-secondary);
+        }
+
+        .blog-list {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+
+        .blog-item {
+            display: block;
+            padding: var(--space-xl);
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-lg);
+            transition: all var(--transition-base);
+            text-decoration: none;
+        }
+
+        .blog-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px var(--color-shadow-hover);
+            border-color: var(--color-primary);
+        }
+
+        .blog-date {
+            display: block;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-bottom: var(--space-sm);
+        }
+
+        .blog-title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-sm);
+            color: var(--color-text-main);
+        }
+
+        .blog-excerpt {
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-relaxed);
+            margin: 0;
+        }
+
+        .blog-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+            border-radius: var(--radius-sm);
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            margin-top: var(--space-md);
+            color: var(--color-primary);
+            font-weight: var(--font-weight-medium);
+            font-size: var(--font-size-sm);
+        }
+
+        .read-more:hover {
+            color: var(--color-primary-dark);
+        }
+
+        .read-more::after {
+            content: '→';
+            margin-left: var(--space-xs);
+            transition: transform var(--transition-base);
+        }
+
+        .blog-item:hover .read-more::after {
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" role="navigation" aria-label="主导航">
+        <div class="container">
+            <a href="/" class="nav-logo">{{ site.site_name }}</a>
+            <ul class="nav-menu">
+                <li><a href="/#about">关于</a></li>
+                <li><a href="/#skills">技能</a></li>
+                <li><a href="/#projects">项目</a></li>
+                <li><a href="/blog/">博客</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 博客头部 -->
+    <header class="blog-header">
+        <div class="container">
+            <h1>我的博客</h1>
+            <p>分享技术学习心得、项目经验和生活感悟</p>
+        </div>
+    </header>
+
+    <!-- 博客列表 -->
+    <div class="blog-list">
+        {% for post in site.posts %}
+        <a href="{{ post.url }}" class="blog-item">
+            <time class="blog-date">{{ post.date | date: "%Y年%m月%d日" }}</time>
+            <h2 class="blog-title">{{ post.title }}</h2>
+            <p class="blog-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+            {% if post.categories %}
+            <div class="blog-categories">
+                {% for category in post.categories %}
+                <span class="category-tag">{{ category }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <span class="read-more">阅读全文</span>
+        </a>
+        {% endfor %}
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 {{ site.author }}. 用心构建，用爱分享。</p>
+            <div class="footer-social">
+                <a href="mailto:hsl20050820@126.com" aria-label="邮箱">Email</a>
+                <span>•</span>
+                <a href="https://github.com/hsl-jack-82" aria-label="GitHub" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/index.js"></script>
+</body>
+</html>

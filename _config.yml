@@ -1,0 +1,49 @@
+# Jekyll 配置文件
+
+# 网站信息
+title: Jack 的个人主页
+site_name: Jack82
+description: 一名在北京学习的学生，热爱编程，专注于构建优雅的解决方案
+tagline: 一名在北京学习的学生
+author: Jack82
+email: hsljack82@126.com
+
+# GitHub Pages 配置
+theme: minima
+# 或者使用自定义布局
+# theme: null
+
+# Markdown 处理器
+markdown: kramdown
+highlighter: rouge
+
+# 时区
+timezone: Asia/Shanghai
+
+# 排除的文件
+exclude:
+  - .gitignore
+  - README.md
+  - CLAUDE.md
+
+# 博客文章路径
+permalink: /blog/:year/:month/:day/:title/
+
+# 项目集合
+collections:
+  projects:
+    output: false
+    sort_by: order
+  skills:
+    output: false
+    sort_by: order
+
+# 插件
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# 抑制 Sass 弃用警告
+sass:
+  quiet_deps: true
+  silence_deprecations: ["import", "color-functions", "global-builtin"]
