@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ page.description | default: page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
+    <title>{{ page.title }} - {{ site.title }}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/highlight.css">
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="主导航">
+        <div class="container">
+            <a href="/" class="nav-logo">{{ site.site_name }}</a>
+            <ul class="nav-menu">
+                <li><a href="/#about">关于</a></li>
+                <li><a href="/#skills">技能</a></li>
+                <li><a href="/#projects">项目</a></li>
+                <li><a href="/blog/">博客</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="project-page">
+        <article class="project-article">
+            <a href="/#projects" class="back-button">← 返回项目列表</a>
+
+            <header class="project-header">
+                <h1 class="project-title">{{ page.title }}</h1>
+                {% if page.description %}
+                <p class="project-summary">{{ page.description }}</p>
+                {% endif %}
+                {% if page.tags and page.tags.size > 0 %}
+                <div class="project-tags">
+                    {% for tag in page.tags %}
+                    {% assign tag_slug = tag | slugify %}
+                    <a href="/tags/{{ tag_slug }}/" class="tag">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </header>
+
+            <div class="project-content">
+                {{ content }}
+            </div>
+
+            <section class="related-posts">
+                <h2 class="related-title">相关文章</h2>
+                {% assign project_ref = page.project_id | default: page.slug %}
+                {% assign related_posts = site.posts | where_exp: "post", "post.projects contains project_ref" %}
+
+                <div class="blog-links related-post-list">
+                    {% for post in related_posts limit:3 %}
+                    <a href="{{ post.url }}" class="blog-item">
+                        <time class="blog-date">{{ post.date | date: "%Y-%m-%d" }}</time>
+                        <h3 class="blog-title">{{ post.title }}</h3>
+                        <p class="blog-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+                    </a>
+                    {% endfor %}
+
+                    {% if related_posts.size == 0 %}
+                    <p class="related-empty">暂无关联文章。</p>
+                    {% endif %}
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 {{ site.author }}. 用心构建，用爱分享。</p>
+            <div class="footer-social">
+                <a href="mailto:hsl20050820@126.com" aria-label="邮箱">Email</a>
+                <span>•</span>
+                <a href="https://github.com/hsl-jack-82" aria-label="GitHub" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/index.js"></script>
+</body>
+</html>

@@ -2,7 +2,8 @@
 layout: post
 title: "解决 Android Studio 下 Compose 图片组件预览的问题"
 date: 2026-02-05 10:00:00 +0800
-categories: [Android, "Android Studio 预览"]
+tags: [Android, Android-Studio-Preview]
+projects: [readerassistant]
 ---
 
 # 发现问题

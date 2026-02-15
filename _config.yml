@@ -32,8 +32,11 @@ permalink: /blog/:year/:month/:day/:title/
 # 项目集合
 collections:
   projects:
-    output: false
+    output: true
     sort_by: order
+  tags:
+    output: true
+    sort_by: title
   skills:
     output: false
     sort_by: order

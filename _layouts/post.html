@@ -33,6 +33,30 @@
             margin-bottom: var(--space-lg);
         }
 
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+
+        .post-tag {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+            border-radius: var(--radius-sm);
+        }
+
+        .post-tag:hover {
+            background: var(--color-primary);
+            color: white;
+            text-decoration: none;
+        }
+
         .post-content {
             font-size: var(--font-size-lg);
             line-height: var(--line-height-relaxed);
@@ -156,9 +180,13 @@
             <h1 class="post-title">{{ page.title }}</h1>
             <div class="post-meta">
                 <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y年%m月%d日" }}</time>
-                {% if page.categories %}
-                <span> • </span>
-                <span>{{ page.categories | join: ", " }}</span>
+                {% if page.tags %}
+                <div class="post-tags">
+                    {% for tag in page.tags %}
+                    {% assign tag_slug = tag | slugify %}
+                    <a href="/tags/{{ tag_slug }}/" class="post-tag">{{ tag }}</a>
+                    {% endfor %}
+                </div>
                 {% endif %}
             </div>
         </header>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="标签 {{ page.tag_name | default: page.title }} 相关的项目与博客内容">
+    <title>标签：{{ page.tag_name | default: page.title }} - {{ site.title }}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    {% assign current_tag = page.tag_name | default: page.title %}
+    {% assign related_projects = site.projects | where_exp: "project", "project.tags contains current_tag" %}
+    {% assign related_posts = site.posts | where_exp: "post", "post.tags contains current_tag" %}
+
+    <nav class="navbar" role="navigation" aria-label="主导航">
+        <div class="container">
+            <a href="/" class="nav-logo">{{ site.site_name }}</a>
+            <ul class="nav-menu">
+                <li><a href="/#about">关于</a></li>
+                <li><a href="/#skills">技能</a></li>
+                <li><a href="/#projects">项目</a></li>
+                <li><a href="/blog/">博客</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="tag-page">
+        <div class="tag-page-header">
+            <a href="/" class="back-button">← 返回首页</a>
+            <h1 class="tag-page-title">#{{ current_tag }}</h1>
+            <p class="tag-page-subtitle">找到 {{ related_projects.size }} 个项目，{{ related_posts.size }} 篇博客</p>
+        </div>
+
+        <section class="tag-section">
+            <h2 class="tag-section-title">相关项目</h2>
+            {% if related_projects.size > 0 %}
+            <div class="projects-grid">
+                {% for project in related_projects %}
+                <article class="project-card">
+                    <div class="project-content">
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.description }}</p>
+                        <div class="project-tags">
+                            {% for tag in project.tags %}
+                            {% assign tag_slug = tag | slugify %}
+                            <a href="/tags/{{ tag_slug }}/" class="tag">{{ tag }}</a>
+                            {% endfor %}
+                        </div>
+                        <div class="project-links">
+                            <a href="{{ project.url }}" class="btn">查看项目详情</a>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="related-empty">暂无相关项目。</p>
+            {% endif %}
+        </section>
+
+        <section class="tag-section">
+            <h2 class="tag-section-title">相关文章</h2>
+            {% if related_posts.size > 0 %}
+            <div class="blog-links related-post-list">
+                {% for post in related_posts %}
+                <a href="{{ post.url }}" class="blog-item">
+                    <time class="blog-date">{{ post.date | date: "%Y-%m-%d" }}</time>
+                    <h3 class="blog-title">{{ post.title }}</h3>
+                    <p class="blog-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="related-empty">暂无相关文章。</p>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 {{ site.author }}. 用心构建，用爱分享。</p>
+            <div class="footer-social">
+                <a href="mailto:hsl20050820@126.com" aria-label="邮箱">Email</a>
+                <span>•</span>
+                <a href="https://github.com/hsl-jack-82" aria-label="GitHub" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/index.js"></script>
+</body>
+</html>

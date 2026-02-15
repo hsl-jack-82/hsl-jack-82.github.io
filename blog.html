@@ -62,6 +62,14 @@
             color: var(--color-text-main);
         }
 
+        .blog-title a {
+            color: var(--color-text-main);
+        }
+
+        .blog-title a:hover {
+            color: var(--color-primary);
+        }
+
         .blog-excerpt {
             font-size: var(--font-size-base);
             color: var(--color-text-secondary);
@@ -69,14 +77,14 @@
             margin: 0;
         }
 
-        .blog-categories {
+        .blog-tags {
             display: flex;
             flex-wrap: wrap;
             gap: var(--space-sm);
             margin-top: var(--space-md);
         }
 
-        .category-tag {
+        .tag-link {
             display: inline-block;
             padding: var(--space-xs) var(--space-sm);
             background: var(--color-primary-light);
@@ -84,6 +92,11 @@
             font-size: var(--font-size-xs);
             font-weight: var(--font-weight-medium);
             border-radius: var(--radius-sm);
+        }
+
+        .tag-link:hover {
+            background: var(--color-primary);
+            color: #fff;
         }
 
         .read-more {
@@ -135,19 +148,20 @@
     <!-- 博客列表 -->
     <div class="blog-list">
         {% for post in site.posts %}
-        <a href="{{ post.url }}" class="blog-item">
+        <article class="blog-item">
             <time class="blog-date">{{ post.date | date: "%Y年%m月%d日" }}</time>
-            <h2 class="blog-title">{{ post.title }}</h2>
+            <h2 class="blog-title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
             <p class="blog-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
-            {% if post.categories %}
-            <div class="blog-categories">
-                {% for category in post.categories %}
-                <span class="category-tag">{{ category }}</span>
+            {% if post.tags %}
+            <div class="blog-tags">
+                {% for tag in post.tags %}
+                {% assign tag_slug = tag | slugify %}
+                <a href="/tags/{{ tag_slug }}/" class="tag-link">{{ tag }}</a>
                 {% endfor %}
             </div>
             {% endif %}
-            <span class="read-more">阅读全文</span>
-        </a>
+            <a href="{{ post.url }}" class="read-more">阅读全文</a>
+        </article>
         {% endfor %}
     </div>
 

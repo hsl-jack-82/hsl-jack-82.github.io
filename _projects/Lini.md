@@ -1,7 +1,8 @@
 ---
+layout: project
 title: Lini
+project_id: lini
 description: ini parsing library implemented by pure lua
-project_url: https://github.com/hsl-jack-82/Lini
 tags:
   - Lua
   - INI
@@ -10,6 +11,8 @@ order: 1
 ---
 
 Lini 是一个用纯 Lua 实现的 INI 文件解析库。
+
+项目地址：<https://github.com/hsl-jack-82/Lini>
 
 主要功能：
 - 从文件加载 INI 配置
